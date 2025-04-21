@@ -1,11 +1,11 @@
 @echo off
-chcp 65001 >nul
+chcp 65001
 echo 正在配置Fabry-Pérot腔OAM模式分析器环境...
 
 REM 检查Python是否已安装
 python --version >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
-    echo 未检测到Python，请先安装Python 3.13或更高版本
+    echo 未检测到Python，请先安装Python 3.8或更高版本
     pause
     exit /b 1
 )
@@ -19,9 +19,12 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+REM 设置环境变量确保Python使用UTF-8编码
+set PYTHONIOENCODING=utf-8
+
 REM 启动程序
 echo 环境配置完成，正在启动程序...
-python fp_oam_simulator.py
+python -X utf8 fp_oam_simulator.py
 if %ERRORLEVEL% NEQ 0 (
     echo 程序运行出错
     pause
